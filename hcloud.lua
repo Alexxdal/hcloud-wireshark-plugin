@@ -62,7 +62,7 @@ function hcloud_protocol.dissector(buffer, pinfo, tree)
   local subtree = tree:add(hcloud_protocol, buffer(), "HCLOUD Body")
   subtree:add(command_type, buffer(0,2))
 	if(buffer(0,2):uint() == 0x6400) then
-	subtree:add_le(protocols, buffer(2, 4))
+	subtree:add_le(protocols, buffer(2, buffer:len() - 2))
 	elseif(buffer(0,2):uint() == 0x6500) then
 	subtree:add_le(set_proto_status, buffer(2,1))
 	subtree:add_le(set_proto_error, buffer(3,1))
